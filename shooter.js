@@ -14,8 +14,7 @@ export default class Shooter {
         this.delete = false;
 
         this.bulletPool = [];
-        this.bulletMax = 5;
-        this.which = 0;
+        this.max = 5;
 
         /* HOW PROJECTILES WORK: whenever user shoots, new projectile added to array. As he not shoots,
         it automatically decrements until it is empty :) */
@@ -27,23 +26,24 @@ export default class Shooter {
         this.weapon = "pistol";
         this.fireRate = 0;
         this.specialAmmo = 0;
+
+        // IMMEDIATELY creates pool:
+        this.createPool();
     }
 
-    isShooting() {
-        this.bulletPool[which].active = true;
-        which++;
-        if (which > this.bulletPool.length-1){
-            which = 0;
-        }
-    }
-
-    setup() {
-        for (let i = 0; i < this.bulletMax; i++) {
-            this.bulletPool.push(this.projectiles.push(new Projectile(this.x + this.width - 20, this.y + 10, this.angle, this.weapon, this.delete)));
+    createPool() {
+        for (let i = 0; i < this.max; i++) {
+            this.bulletPool.push(this.projectiles.push(new Projectile(this)));
         }
     }
     
-    draw(context) {
+    render(context) {
+        this.bulletPool.forEach(bullet => {
+            // uses same context as shooter:
+            bullet.draw();
+            bullet.update();
+        });
+
         context.beginPath();
         context.fillStyle = "yellow";
         context.fillRect(this.x, this.y, this.width, this.height);

@@ -1,6 +1,3 @@
-let flammen = new Audio();
-flammen.src = "src/assets/sounds/flammen2.mp3";
-
 // TODO: while shooting straight, pressing d+w makes bullets shoot up instead of diagnal,
 // yet, pressing w+d does make it diagnal.    --DONE. Simply had to move if statement to bottom of cases.
 

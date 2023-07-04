@@ -1,17 +1,17 @@
-
+var canvas = document.getElementById("canvas1");
+// var cxt = canvas.getContext("2d", { alpha: false });
+var cxt = canvas.getContext("2d");
+canvas.style.width=canvas.getBoundingClientRect().width;//actual width of canvas
+canvas.style.height=canvas.getBoundingClientRect().height;//actual height of canvas
 
 export default class Projectile {
-    // "dead" used as determinant for playing sounds
-    constructor(x, y, direction, weapon, dead) {
+    constructor(shooter) {
+      this.shooter = shooter;
       // constructor(x, y) { lol test
-      this.x = x;
-      this.y = y;
-      this.direction = direction;
-      this.weapon = weapon;
-      this.dead = dead;
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
 
       this.active = false;
-
       this.size = 3;
 
       this.speed = 10;
@@ -27,13 +27,13 @@ export default class Projectile {
     }
     
     update() {
-      if (this.active) this.x += this.speed;
+      this.x += this.speed;
     }
     
-    draw(context) {
-      context.fillStyle = "black";
-      context.beginPath();
-      context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      context.fill();
+    draw() {
+      cxt.fillStyle = "black";
+      cxt.beginPath();
+      cxt.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      cxt.fill();
     }
 }
