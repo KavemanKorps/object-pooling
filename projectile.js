@@ -10,15 +10,14 @@ export default class Projectile {
       this.weapon = weapon;
       this.dead = dead;
 
+      this.active = false;
+
       this.size = 3;
 
       this.speed = 10;
       this.delete = false;
 
       this.bulletLimit;
-
-      this.pistol = new Audio();
-      this.pistol.src = "src/assets/sounds/shots/pistol.wav";
     }
 
     playSound(sound) {
@@ -28,11 +27,7 @@ export default class Projectile {
     }
     
     update() {
-      switch (this.weapon) {
-        case "pistol":
-          this.playSound(this.sfx.pistol);
-          break;
-      }
+      if (this.active) this.x += this.speed;
     }
     
     draw(context) {

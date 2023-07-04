@@ -15,6 +15,7 @@ export default class Shooter {
 
         this.bulletPool = [];
         this.bulletMax = 5;
+        this.which = 0;
 
         /* HOW PROJECTILES WORK: whenever user shoots, new projectile added to array. As he not shoots,
         it automatically decrements until it is empty :) */
@@ -26,6 +27,14 @@ export default class Shooter {
         this.weapon = "pistol";
         this.fireRate = 0;
         this.specialAmmo = 0;
+    }
+
+    isShooting() {
+        this.bulletPool[which].active = true;
+        which++;
+        if (which > this.bulletPool.length-1){
+            which = 0;
+        }
     }
 
     setup() {
@@ -49,23 +58,7 @@ export default class Shooter {
     update() {
         // code doesn't work. fireRate not set.    
         if (this.shooting) {
-            this.timer++;
             
-            if (this.timer % this.fireRate === 0  || this.timer == 1) {
-                this.projectiles.push(new Projectile(this.x + this.width - 20, this.y + 10, this.angle, this.weapon, this.delete));
-                
-                if (this.specialAmmo > 0) {
-                    this.specialAmmo--;
-                }
-                else {
-                    this.weapon = "pistol";
-                    this.fireRate = 0;
-                    this.specialAmmo = 0;
-                }
-            }
-        }
-        else {
-            this.timer = 0;
         }
     }
 }
