@@ -11,50 +11,35 @@ export default class Shooter {
         this.shooting = false; 
 
         this.bulletPool = [];
-        this.max = 5;
-        // this.bulletTimer = 0;
-        // this.bulletInterval = 1;
-        this.createPool();  
+        this.max = 5;  
 
         this.timer = 0;
         
         this.weapon = "pistol";
-        this.fireRate = 1;
+        this.fireRate = 0;
         this.specialAmmo = 0;
+
+        // I should see if I can't add something like "this.createPool()" 
+        // so as to pre-render the array of objects.
     }
-    createPool() {
-        for (let i = 0; i < this.max; i++) {
-            this.bulletPool.push(new Projectile(this));
-        }
-    }
-    getElement() {
-        for (let i = 0; i < this.bulletPool.length; i++) {
-            if (this.bulletPool[i].free && this.shooting) return this.bulletPool[i];
-        }
-    }
-    render(context, deltaTime) {    
+    
+    draw(context) {    
         context.beginPath();
         context.fillStyle = "yellow";
         context.fillRect(this.x, this.y, this.width, this.height);
 
+        for (let i = 0; i < this.bulletPool.length; i++) {
+            this.bulletPool[i].draw(context);
+        }
+    }
+    update() {
         if (this.shooting) {
             this.timer++;
-            // if (this.bulletTimer > this.bulletInterval) {
-            if (this.timer % this.fireRate === 0  || this.timer == 1) {
-                const bullet = this.getElement();
-                if (bullet) bullet.start();
-                this.bulletTimer = 0;
-            } else {
-                this.bulletTimer += deltaTime;
+          
+            if ((this.timer % this.fireRate === 0  || this.timer == 1) &&
+            this.bulletPool < this.max) {
+                this.bulletPool.push(new Projectile(this.x, this.y + 10));
             }
-            this.bulletPool.forEach(bullet => {
-                // they are only drawn if "free" is true:
-                bullet.draw(context);
-                bullet.update();
-            });
-        }
-        else {
-            this.timer = 0;
         }
     }
 }

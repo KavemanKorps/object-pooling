@@ -4,17 +4,18 @@ var cxt = canvas.getContext("2d");
 canvas.style.width=canvas.getBoundingClientRect().width;//actual width of canvas
 canvas.style.height=canvas.getBoundingClientRect().height;//actual height of canvas
 
+// I NEED TO USE A SIMILAR SYSTEM AS THAT IN SHOOTER-GAME-JS. Push but don't splice.
 export default class Projectile {
     constructor(shooter) {
       this.shooter = shooter;
       this.radius = 3;
 
-      this.x = shooter.x;
-      this.y = shooter.y;
+      this.x = shooter.x - 50;
+      this.y = Math.random() * canvas.height;
     
       this.speed = 10;
 
-      this.free = true;
+      this.free = false;
 
     }
     draw(context) {

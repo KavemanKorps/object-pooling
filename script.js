@@ -13,15 +13,15 @@ const shooter = new Shooter(100, 100);
 // InputHandler(shooter);
 new InputHandler(shooter, canvas);
 
-let lastTime = 0;
-function animate(timeStamp) {
-    const deltaTime = timeStamp - lastTime;
-    lastTime = timeStamp;
+function handleProjectile() {
 
+}
+
+function animate() {
     cxt.clearRect(0, 0, canvas.width, canvas.height);
     cxt.fillStyle = "transparent";
     cxt.fillRect(0, 0, canvas.width, canvas.height);
-    shooter.render(cxt, deltaTime)
+    shooter.draw(cxt);
 
     // window.requestAnimationFrame(animate);
     console.log(shooter.shooting);
