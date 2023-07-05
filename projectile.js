@@ -7,33 +7,39 @@ canvas.style.height=canvas.getBoundingClientRect().height;//actual height of can
 export default class Projectile {
     constructor(shooter) {
       this.shooter = shooter;
-      // constructor(x, y) { lol test
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
+      this.radius = 3;
 
-      this.active = false;
-      this.size = 3;
-
+      this.x = shooter.x;
+      this.y = shooter.y;
+    
       this.speed = 10;
-      this.delete = false;
 
-      this.bulletLimit;
+      this.free = true;
+
     }
-
-    playSound(sound) {
-      if (!sound.playing()) {
-        sound.play();
+    draw(context) {
+      if (!this.free) {
+        context.fillStyle = "black";
+        cxt.beginPath();
+        cxt.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        cxt.fill();
       }
     }
     
     update() {
-      this.x += this.speed;
+      if (!this.free) {
+        this.x += this.speed;
+        if (this.x > canvas.width + this.radius) {
+            this.reset();
+        }
+      }
     }
-    
-    draw() {
-      cxt.fillStyle = "black";
-      cxt.beginPath();
-      cxt.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      cxt.fill();
+    reset() {
+      this.x = this.shooter.x;
+      this.y = this.shooter.y;
+      this.free = true;
+    }
+    start() {
+      this.free = false;
     }
 }

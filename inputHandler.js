@@ -1,6 +1,5 @@
 // TODO: while shooting straight, pressing d+w makes bullets shoot up instead of diagnal,
 // yet, pressing w+d does make it diagnal.    --DONE. Simply had to move if statement to bottom of cases.
-
 export default class InputHandler {
   constructor(entity, canvas) {
     this.canvas = canvas;
