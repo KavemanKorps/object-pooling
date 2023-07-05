@@ -19,7 +19,7 @@ export default class Shooter {
         this.timer = 0;
         
         this.weapon = "pistol";
-        this.fireRate = 0;
+        this.fireRate = 1;
         this.specialAmmo = 0;
     }
     createPool() {
@@ -32,25 +32,23 @@ export default class Shooter {
             if (this.bulletPool[i].free && this.shooting) return this.bulletPool[i];
         }
     }
-    render(context, deltaTime) {
+    render(context, deltaTime) {    
         context.beginPath();
         context.fillStyle = "yellow";
         context.fillRect(this.x, this.y, this.width, this.height);
 
         if (this.shooting) {
             this.timer++;
-            // periodically add bullets:
             // if (this.bulletTimer > this.bulletInterval) {
             if (this.timer % this.fireRate === 0  || this.timer == 1) {
-                // get free bullet. This is a temporary "helper" variable:
                 const bullet = this.getElement();
-                // that is, if there is actually an bullet (aka: bulletPool isn't empty!):
                 if (bullet) bullet.start();
                 this.bulletTimer = 0;
             } else {
                 this.bulletTimer += deltaTime;
             }
             this.bulletPool.forEach(bullet => {
+                // they are only drawn if "free" is true:
                 bullet.draw(context);
                 bullet.update();
             });
