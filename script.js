@@ -14,7 +14,7 @@ const shooter = new Shooter(100, 100);
 new InputHandler(shooter, canvas);
 
 function handleProjectile() {
-
+    
 }
 
 function animate() {
@@ -24,7 +24,6 @@ function animate() {
     shooter.draw(cxt);
 
     // window.requestAnimationFrame(animate);
-    console.log(shooter.shooting);
     requestAnimationFrame(animate);
 }
   
