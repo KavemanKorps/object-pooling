@@ -9,6 +9,9 @@ export default class Shooter {
         this.height = 50;
         this.x = x;
         this.y = y; 
+        this.fireRate = 0;
+        this.shooting = false;
+        this.timer = 0;
     }
     draw(context) {    
         context.fillStyle = "red";
@@ -16,6 +19,9 @@ export default class Shooter {
     }
     // this runs when spacebar is pressed.
     shoot() {
+        if (this.shooting) {
+            this.timer++;
+        }
         const projectile = this.game.getProjectile();
         // if (projectile) projectile.start(this.x, this.y);
         if (projectile) {
