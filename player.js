@@ -1,20 +1,27 @@
 import Projectile from "./projectile.js";
+import Floor from "./floor.js";
 
 // why is mouse stuff here? so that it can be used as "entity.mouse" in inputHandler.js
 export default class Shooter {
-    constructor(game) { 
+   constructor(game, x, y) { 
         this.game = game;
         this.width = 50;
         this.height = 50;
-        this.x = this.game.width * 0.5 - this.width * 0.5;
-        this.y = this.game.height - this.height;
+        this.x = x;
+        this.y = y; 
     }
-    
     draw(context) {    
+        context.fillStyle = "red";
         context.fillRect(this.x, this.y, this.width, this.height);
     }
+    // this runs when spacebar is pressed.
     shoot() {
         const projectile = this.game.getProjectile();
-        if (projectile) projectile.start(this.x, this.y);
+        // if (projectile) projectile.start(this.x, this.y);
+        if (projectile) {
+            projectile.x = this.x;
+            projectile.y = this.y;
+            projectile.free = false;
+        }
     }
-}
+};
